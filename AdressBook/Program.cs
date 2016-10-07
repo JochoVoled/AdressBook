@@ -4,19 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace tmp
-{
-    static class Program
-    {
+namespace AdressBook {
+    static class Program {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
-        {
+        static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            // todo testing manual call of form methods, remove once done
+            
+            Application.Run(new MainForm());
         }
     }
 }
