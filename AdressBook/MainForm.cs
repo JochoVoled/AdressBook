@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace AdressBook
 {
@@ -15,7 +14,8 @@ namespace AdressBook
         public string mail = "";
         User user = new User();
 
-        public MainForm() {
+        public MainForm()
+        {
             InitializeComponent();
         }
 
@@ -24,7 +24,8 @@ namespace AdressBook
         {
             // todo update fields to file, improves usability and fault-resilience
             user.UpdateUser(name, adress, zipCode, city, phone, mail);
-            ContactList.Text = name;
+            DataManager.SaveAllUsers();
+            ContactList.Text = "name";
             // todo update the name in ContactList
         }
         private void CmdCancelButton_Click(object sender, EventArgs e)
@@ -66,17 +67,17 @@ namespace AdressBook
 
         private void ShowAllUsers()
         {
-            if (DataManager.userList.Count<=0)
+            if(DataManager.userList.Count <= 0)
             {
                 DataManager.userList = DataManager.SetupUsers();
             }
-            foreach (User user in DataManager.userList)
+            foreach(User user in DataManager.userList)
             {
                 try
                 {
                     ContactList.Items.Add(user.name);
                 }
-                catch (ArgumentNullException)
+                catch(ArgumentNullException)
                 {
                     MessageBox.Show("User.name is null");
                     throw;
@@ -105,7 +106,7 @@ namespace AdressBook
             User newUser = new User();
             DataManager.userList.Add(newUser);
             ContactList.Items.Add(newUser);
-            ContactList.SetSelected(ContactList.Items.Count-1, true);
+            ContactList.SetSelected(ContactList.Items.Count - 1, true);
             ContactList.Text = newUser.name;
         }
         private void RemoveButton_Click(object sender, EventArgs e)
@@ -121,12 +122,12 @@ namespace AdressBook
             ContactList.Items.Clear();
 
             var searchFilter = contactListSearchField.Text.ToLower();
-            if (searchFilter != "")
+            if(searchFilter != "")
             {
                 var usersNameFilter = from User name in DataManager.userList where name.name.Contains(searchFilter) select name;
                 var usersCityFilter = from User city in DataManager.userList where city.city.Contains(searchFilter) select city;
                 var filteredUsers = usersNameFilter.Concat(usersCityFilter);
-                foreach (User user in filteredUsers)
+                foreach(User user in filteredUsers)
                 {
                     ContactList.Items.Add(user.name);
                 }
@@ -135,19 +136,18 @@ namespace AdressBook
             {
                 ShowAllUsers();
             }
-            
-        }
 
+        }
         private void ContactList_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                if (ContactList.SelectedIndex>=0)
+                if(ContactList.SelectedIndex >= 0)
                 {
                     user = DataManager.userList[ContactList.SelectedIndex];
                 }
             }
-            catch (ArgumentOutOfRangeException)
+            catch(ArgumentOutOfRangeException)
             {
                 MessageBox.Show("Could not select user, due to being out of range");
             }

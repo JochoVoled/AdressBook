@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace AdressBook
+﻿namespace AdressBook
 {
     class User
     {
@@ -16,7 +14,7 @@ namespace AdressBook
         public User(string info)
         {
             var infoArray = info.Split(',');
-            if (infoArray.Length==6)
+            if(infoArray.Length == 6)
             {
                 name = infoArray[0].Trim();
                 adress = infoArray[1].Trim();

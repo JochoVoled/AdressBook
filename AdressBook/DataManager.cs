@@ -13,11 +13,20 @@ namespace AdressBook
         public static List<User> SetupUsers()
         {
             List<string> fullRead;
-            using (StreamReader inStream = new StreamReader(path))
+            if(File.Exists(path))
             {
-                fullRead = inStream.ReadToEnd().Split('\n').ToList();
+                using(StreamReader inStream = new StreamReader(path))
+                {
+                    fullRead = inStream.ReadToEnd().Split('\n').ToList();
+                }
             }
-            foreach (var entry in fullRead)
+            else
+            {
+                File.Create(path);
+                fullRead = new List<string> { "" };
+            }
+
+            foreach(var entry in fullRead)
             {
                 if(entry != "")
                 {
@@ -26,7 +35,7 @@ namespace AdressBook
                     {
                         userList.Add(tryUser);
                     }
-                    catch (Exception exc)
+                    catch(Exception exc)
                     {
                         System.Windows.Forms.MessageBox.Show(exc.ToString());
                         throw;
@@ -38,20 +47,20 @@ namespace AdressBook
 
         public static bool SaveAllUsers()
         {
-            using (StreamWriter outStream = new StreamWriter(path))
+            using(StreamWriter outStream = new StreamWriter(path))
             {
-                foreach (User item in userList)
+                foreach(User item in userList)
                 {
                     try
                     {
                         outStream.WriteLine(item.Serialize());
                     }
-                    catch (Exception exc)
+                    catch(Exception exc)
                     {
                         System.Windows.Forms.MessageBox.Show(exc.ToString());
                         return false;
                     }
-                }                
+                }
             }
             return true;
         }
