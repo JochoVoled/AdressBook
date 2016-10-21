@@ -24,8 +24,9 @@ namespace AdressBook
         {
             user.UpdateUser(name, adress, zipCode, city, phone, mail);
             DataManager.SaveAllUsers();
-            ContactList.Text = "name";
             // todo update the name in ContactList
+            ContactList.Text = "name";
+            
         }
         private void CmdCancelButton_Click(object sender, EventArgs e)
         {

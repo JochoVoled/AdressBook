@@ -262,6 +262,8 @@
             this.Controls.Add(this.contactListSearchField);
             this.Controls.Add(this.contactInfoGroupBox);
             this.Controls.Add(this.ContactListGroupBox);
+            this.MaximumSize = new System.Drawing.Size(513, 296);
+            this.MinimumSize = new System.Drawing.Size(513, 296);
             this.Name = "MainForm";
             this.Text = "Adress Book";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_Close);
