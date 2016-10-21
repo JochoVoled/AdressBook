@@ -22,7 +22,6 @@ namespace AdressBook
         #region Contact Info controls
         private void CmdSaveContact_Click(object sender, EventArgs e)
         {
-            // todo update fields to file, improves usability and fault-resilience
             user.UpdateUser(name, adress, zipCode, city, phone, mail);
             DataManager.SaveAllUsers();
             ContactList.Text = "name";
@@ -113,7 +112,13 @@ namespace AdressBook
         {
             ContactList.Items.RemoveAt(ContactList.SelectedIndex);
             DataManager.userList.Remove(user);
-            // todo clear the contact's fields
+            ContactInfoNameField.Text = name = "";
+            ContactInfoZIPField.Text = zipCode = "";
+            ContactInfoPhoneField.Text = phone = "";
+            ContactInfoMailField.Text = mail = "";
+            ContactInfoAdressField.Text = adress = "";
+            ContactInfoCityField.Text = city = "";
+            DataManager.SaveAllUsers();
         }
         #endregion
 
